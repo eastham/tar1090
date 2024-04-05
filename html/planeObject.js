@@ -1708,6 +1708,20 @@ PlaneObject.prototype.updateMarker = function(moved) {
     }
     if (icaoType == null && this.squawk == 7777)
         icaoType = 'TWR';
+
+  // ****** 88NV mods - render some ICAOs as ground vehicles ******
+  let icaonum = Number("0x" + this.icao);
+  let reserved_icao_start = 10498552; // N111XA
+  let reserved_icao_end = 10;
+  if (
+    icaonum >= reserved_icao_start &&
+    icaonum <= reserved_icao_start + reserved_icao_end
+  ) {
+    icaoType = "SERV";
+    this.flight = "OPS" + (icaonum - reserved_icao_start + 1);
+  }
+  // ****** end 88NV mods  ******
+
     let baseMarkerKey = this.category + "_"
         + this.typeDescription + "_" + this.wtc  + "_" + icaoType + '_' + (this.altitude == "ground") + eastbound;
 

@@ -6633,6 +6633,66 @@ function drawOutlineJson() {
         } else {
             points = data.points;
         }
+  });
+
+  addOutline(points);
+
+  // *** 88NV mods ***
+  // BRC trash fence points
+  points = [
+    [40.783, -119.2357],
+    [40.8065, -119.22],
+    [40.8024, -119.1858],
+    [40.7765, -119.1802],
+    [40.7645, -119.2112],
+  ];
+  addOutline(points);
+
+  // frog pond
+  points = [
+    [-119.17610615402, 40.7488595753725],
+    [-119.1740470554009, 40.74389973474296],
+    [-119.1684639457915, 40.74579154071549],
+    [-119.1708311129834, 40.750718973662],
+    [-119.17610615402, 40.74885957537258],
+  ];
+  addOutline(points, true);
+
+  // razorback
+  points = [
+    [-119.1275267620955, 40.76336828301005],
+    [-119.1465388477186, 40.74811770449107],
+    [-119.1537188934665, 40.73460969997895],
+    [-119.1425484873385, 40.73018773378667],
+    [-119.1309630165247, 40.745598511028],
+    [-119.1237625658087, 40.75483721622125],
+    [-119.1275267620955, 40.76336828301005],
+  ];
+  addOutline(points, true);
+
+  // runways
+  points = [
+    [40.76923499990059, -119.1850338850622], //23L
+    [40.7625457503863, -119.2051755454063],
+  ]; //5R
+  addOutline(points);
+
+  points = [
+    [40.76174509074322, -119.215512725103], //23R
+    [40.75354609220237, -119.2334952728262],
+  ]; //5L
+  addOutline(points);
+
+  // *** end 88NV mods ***
+
+  request.fail(function () {
+    // no rings available, do nothing
+  });
+}
+
+// *** 88NV mods-- moved this to function to allow multiple
+// outlines
+function addOutline(points, reverse=false) {
         if (!points || !points.length)
             return;
         let geom = null;
@@ -6650,12 +6710,8 @@ function drawOutlineJson() {
             }
             lastLon = lon;
         }
-    });
-
-    request.fail(function() {
-        // no rings available, do nothing
-    });
 }
+/// *** end 88NV mods
 
 function gotoTime(timestamp) {
     clearTimeout(traceOpts.showTimeout);
