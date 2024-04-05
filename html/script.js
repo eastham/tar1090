@@ -6632,13 +6632,14 @@ function drawOutlineJson() {
         } else {
             points = data.points;
         }
-  }); }
+  }); 
 
   addOutline(points);
+  }
 
   // *** 88NV mods ***
   // BRC trash fence points
-  points = [
+  let points = [
     [40.783, -119.2357],
     [40.8065, -119.22],
     [40.8024, -119.1858],
