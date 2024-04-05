@@ -2409,7 +2409,7 @@ function initMap() {
     });
 
 
-    if (receiverJson && receiverJson.outlineJson) {
+    if (receiverJson) {
         actualOutlineFeatures = new ol.source.Vector();
         actualOutlineStyle = new ol.style.Style({
             fill: null,
