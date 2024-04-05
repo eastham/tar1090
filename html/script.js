@@ -1882,7 +1882,7 @@ function setIntervalTimers() {
         timers.pf_data = window.setInterval(fetchPfData, RefreshInterval*10.314);
         fetchPfData();
     }
-    if (receiverJson && receiverJson.outlineJson) {
+    if (receiverJson) {
         timers.drawOutline = window.setInterval(drawOutlineJson, 15000);
         drawOutlineJson();
     }
@@ -6620,8 +6620,7 @@ let actualOutlineFeatures;
 let actualOutlineStyle;
 
 function drawOutlineJson() {
-    if (!receiverJson || !receiverJson.outlineJson)
-        return;
+    if (receiverJson && receiverJson.outlineJson) {
     let request = jQuery.ajax({ url: 'data/outline.json',
         cache: false,
         dataType: 'json' });
@@ -6633,7 +6632,7 @@ function drawOutlineJson() {
         } else {
             points = data.points;
         }
-  });
+  }); }
 
   addOutline(points);
 
