@@ -6635,6 +6635,10 @@ function drawOutlineJson() {
   }); 
 
   addOutline(points);
+
+    request.fail(function () {
+        // no rings available, do nothing
+    });
   }
 
   // *** 88NV mods ***
@@ -6685,9 +6689,6 @@ function drawOutlineJson() {
 
   // *** end 88NV mods ***
 
-  request.fail(function () {
-    // no rings available, do nothing
-  });
 }
 
 // *** 88NV mods-- moved this to function to allow multiple
