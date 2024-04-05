@@ -6874,8 +6874,8 @@ function addOutline(points, reverse=false) {
             let lastLon = null;
             for (let j = 0; j < points[p].length + 1; ++j) {
                 const k = j % points[p].length;
-                const lat = points[p][k][0];
-                const lon = points[p][k][1];
+                const lat = points[p][k][reverse?1:0];
+                const lon = points[p][k][reverse?0:1];
                 const proj = ol.proj.fromLonLat([lon, lat]);
                 if (!geom || (lastLon && Math.abs(lon - lastLon) > 270)) {
                     geom = new ol.geom.LineString([proj]);
