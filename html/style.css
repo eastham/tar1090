@@ -861,7 +861,7 @@ input{
 }
 
 #replayBar {
-  background: var(--BGCOLOR1);
+  background: #cc1b1b;
   display: none;
   width: calc(100% - 80px);
   padding-right: 80px;
