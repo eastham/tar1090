@@ -334,7 +334,7 @@ function createBaseLayers() {
         }));
     }
 
-/*     if (ChartBundleLayers) {
+    if (ChartBundleLayers) {
 
         let chartbundleTypesDirect = {
             sec: "Sectional Charts",
@@ -395,7 +395,7 @@ function createBaseLayers() {
                 type: 'base',
                 group: 'chartbundle'}));
         }
-    } */
+    }
 
     world.push(new ol.layer.Tile({
         source: new ol.source.XYZ({
