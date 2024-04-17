@@ -430,7 +430,7 @@ select.error, textarea.error, input.error {
     text-decoration: underline;
 }
 
-#time {
+#current_time {
   color: #fff;
   font-size: calc( 30px * var(--SCALE));
   font-weight: bold;
