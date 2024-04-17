@@ -4012,6 +4012,10 @@ function refreshFeatures() {
         global.refreshPageTitle();
         jQuery('#dump1090_total_history').updateText(TrackedHistorySize);
         jQuery('#dump1090_message_rate').updateText(MessageRate === null ? 'n/a' : MessageRate.toFixed(1));
+        jQuery("#current_time").updateText(
+            // show zulu time
+            new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+        );
         jQuery('#dump1090_total_ac').updateText(globeIndex ? globeTrackedAircraft : TrackedAircraft);
         jQuery('#dump1090_total_ac_positions').updateText(TrackedAircraftPositions);
 
