@@ -3872,8 +3872,8 @@ function refreshFeatures() {
         jQuery("#current_time").updateText(
             // show zulu time without date and without seconds
             new Date().toISOString().substring(11, 16) + " Z"
-            // append the local time in hours and minutes
-            + '   ' + new Date().toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'})  + ' local'
+            // append the local time in 24 hour format HH:MM, no AM/PM
+            + "   " + new Date().toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: false}) + " local"
         );
         jQuery('#dump1090_total_ac').updateText(globeIndex ? globeTrackedAircraft : TrackedAircraft);
         jQuery('#dump1090_total_ac_positions').updateText(TrackedAircraftPositions);
