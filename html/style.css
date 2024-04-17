@@ -431,6 +431,12 @@ select.error, textarea.error, input.error {
     text-decoration: underline;
 }
 
+#time {
+  color: var(--TXTCOLOR1);
+  font-size: calc( 20px * var(--SCALE));
+  font-weight: bold;
+}
+
 #header_side {
     position: absolute;
     right: calc( 0px * var(--SCALE));

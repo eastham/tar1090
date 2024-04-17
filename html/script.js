@@ -4013,8 +4013,8 @@ function refreshFeatures() {
         jQuery('#dump1090_total_history').updateText(TrackedHistorySize);
         jQuery('#dump1090_message_rate').updateText(MessageRate === null ? 'n/a' : MessageRate.toFixed(1));
         jQuery("#current_time").updateText(
-            // show zulu time
-            new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+            // show zulu time without date and without seconds
+            new Date().toISOString().substring(11, 16)
         );
         jQuery('#dump1090_total_ac').updateText(globeIndex ? globeTrackedAircraft : TrackedAircraft);
         jQuery('#dump1090_total_ac_positions').updateText(TrackedAircraftPositions);
