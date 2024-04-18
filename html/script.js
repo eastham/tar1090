@@ -6631,24 +6631,22 @@ let actualOutlineStyle;
 
 function drawOutlineJson() {
     if (receiverJson && receiverJson.outlineJson) {
-    let request = jQuery.ajax({ url: 'data/outline.json',
-        cache: false,
-        dataType: 'json' });
-    request.done(function(data) {
-        actualOutlineFeatures.clear();
-        let points;
-        if (data.actualRange && data.actualRange.last24h) {
-            points = data.actualRange.last24h.points;
-        } else {
-            points = data.points;
-        }
-  }); 
-
-  addOutline(points);
-
-    request.fail(function () {
-        // no rings available, do nothing
-    });
+        let request = jQuery.ajax({ url: 'data/outline.json',
+            cache: false,
+            dataType: 'json' });
+        request.done(function(data) {
+            actualOutlineFeatures.clear();
+            let points;
+            if (data.actualRange && data.actualRange.last24h) {
+                points = data.actualRange.last24h.points;
+            } else {
+                points = data.points;
+            }
+            addOutline(points);
+        });
+        request.fail(function () {
+            // no rings available, do nothing
+        });
   }
 
   // *** 88NV mods ***
