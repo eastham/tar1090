@@ -1718,7 +1718,7 @@ PlaneObject.prototype.updateMarker = function(moved) {
     icaonum <= reserved_icao_start + reserved_icao_end
   ) {
     icaoType = "SERV";
-    vehicleNum = icaonum - reserved_icao_start
+    let vehicleNum = icaonum - reserved_icao_start
     if (vehicleNum == 0) {
         this.flight = "HP_1";
     } else {
