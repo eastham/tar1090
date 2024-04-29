@@ -1,4 +1,6 @@
-# tar1090
+# A fork of tar1090 -- with a simplified UI and support for vector graphics on the map
+
+Original README below:
 
 
 ![Screenshot1](https://raw.githubusercontent.com/wiedehopf/tar1090/screenshots/screenshot3.png)
