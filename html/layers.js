@@ -454,7 +454,7 @@ function createBaseLayers() {
                 group: 'chartbundle'}));
         }
     }
-
+*/
     world.push(new ol.layer.Tile({
         source: new ol.source.XYZ({
             "url" : "https://map.adsbexchange.com/mapproxy/tiles/1.0.0/openaip/ul_grid/{z}/{x}/{y}.png",
