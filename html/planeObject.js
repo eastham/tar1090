@@ -1720,9 +1720,11 @@ PlaneObject.prototype.updateMarker = function(moved) {
     icaoType = "SERV";
     let vehicleNum = icaonum - reserved_icao_start
     if (vehicleNum == 0) {
-        this.flight = "AIRPORT_HP";
+        this.flight = "AIRPORT_HP";  
+    } else if (vehicleNum == 1) {
+        this.flight = "AIRPORT_CREW"; 
     } else {
-        this.flight = "AIRPORT_" + vehicleNum;
+        this.flight = "AIRPORT_" + vehicleNum - 1;
     }
   }
   // ****** end 88NV mods  ******
