@@ -1713,17 +1713,17 @@ PlaneObject.prototype.updateMarker = function(moved) {
   // ****** 88NV mods - render some ICAOs as ground vehicles ******
   let icaonum = Number("0x" + this.icao);
   let reserved_icao_start = 10498552; // N111XA
-  let reserved_icao_end = 10;
+  let reserved_icao_end = 10498562;
   if (
     icaonum >= reserved_icao_start &&
-    icaonum <= reserved_icao_start + reserved_icao_end
+    icaonum <= reserved_icao_end
   ) {
     icaoType = "SERV";
     let vehicleNum = icaonum - reserved_icao_start
     if (vehicleNum == 0) {
         this.flight = "AIRPORT_HP";
     } else {
-        this.flight = "AIRPORT_" + vehicleNum;
+        this.flight = "AIRPORT_" + (vehicleNum - 1);
     }
   }
   // ****** end 88NV mods  ******
