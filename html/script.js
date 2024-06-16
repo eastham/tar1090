@@ -6819,7 +6819,7 @@ function drawOutlineJson() {
 
   // *** 88NV mods ***
   // BRC trash fence points
-  let points = [
+  points = [
     [40.783, -119.2357],
     [40.8065, -119.22],
     [40.8024, -119.1858],
