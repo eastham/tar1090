@@ -7591,6 +7591,7 @@ function replayJump() {
     let date = new Date(replay.dateText);
     date.setUTCHours(Number(replay.hours));
     date.setUTCMinutes(Number(replay.minutes));
+    replay.seconds = 0;
     date.setUTCSeconds(Number(replay.seconds));
 
     let ts = new Date(replay.ts.getTime());
