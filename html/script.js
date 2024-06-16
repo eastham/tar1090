@@ -4017,7 +4017,7 @@ function refreshFeatures() {
         jQuery('#dump1090_total_history').updateText(TrackedHistorySize);
         jQuery('#dump1090_message_rate').updateText(MessageRate === null ? 'n/a' : MessageRate.toFixed(1));
         jQuery("#current_time").updateText(
-            "&nbsp;&nbsp;"
+            "&nbsp;&nbsp;" + 
             // show zulu time without date and without seconds
             new Date().toISOString().substring(11, 16) + " Z"
             // append the local time in 24 hour format HH:MM, no AM/PM
