@@ -2542,7 +2542,7 @@ function initMap() {
     });
 
 
-    actualOutline.enabled = multiOutline || (receiverJson && receiverJson.outlineJson);
+    actualOutline.enabled = true; // multiOutline || (receiverJson && receiverJson.outlineJson);
 
     if (actualOutline.enabled) {
         actualOutline.refresh = 15000;
