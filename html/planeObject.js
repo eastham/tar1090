@@ -1,4 +1,10 @@
-import { specialAircraftList } from './special_aircraft.js';
+
+const ultralights = [
+    "N566AC",
+];
+const reserved_icao_start = 0xadf800;
+const reserved_icao_end = 0xadf8ff;
+
 
 "use strict";
 
