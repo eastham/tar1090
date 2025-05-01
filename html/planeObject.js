@@ -1779,6 +1779,8 @@ PlaneObject.prototype.updateMarker = function(moved) {
     // 88NV reduce size of ground vehicles
     if (this.groundVehicle) {
         this.scale = iconSize * this.baseScale * (this.groundVehicle ? 0.7 : 1.0);
+    } else {
+        this.scale = iconSize * this.baseScale;
     }
 
     this.strokeWidth = outlineWidth * ((this.selected && !SelectedAllPlanes && !onlySelected) ? 0.85 : 0.7) / this.baseScale;
