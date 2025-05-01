@@ -699,9 +699,14 @@ PlaneObject.prototype.getMarkerColor = function(options) {
     let icaonum = Number("0x" + this.icao);
     if (ultralights.includes(this.registration)) {
         return [0, 0, 50]; // Grey color in HSL
-    } else if (icaonum >= reserved_icao_start && icaonum <= reserved_icao_end) {
-        return [0, 100, 50]; // Bright red color in HSL
+    } else if (this.isGroundVehicle()){
+        if (!this.IsNearRunways()) {
+            return [0, 0, 50]; // Grey color in HSL
+        } else {
+            return [0, 100, 50]; // Bright red color in HSL
+        }
     }
+
     let alt = options.noRound ? this.altitude : this.alt_rounded;
     if (this.category == 'C3' || this.icaoType == 'TWR' || (this.icaoType == null && this.squawk == 7777))
         alt = 'ground';
@@ -836,6 +841,36 @@ PlaneObject.prototype.setMarkerRgb = function() {
     this.glMarker.set('b', rgb[2]);
 };
 
+PlaneObject.prototype.isGroundVehicle = function() {
+    let icaonum = Number("0x" + this.icao);
+    return (icaonum >= reserved_icao_start &&
+            icaonum <= reserved_icao_end)
+}
+
+PlaneObject.prototype.IsNearRunways = function() {
+    let line1 = [
+        [-119.18491, 40.76866],  // (23L)
+        [-119.20451, 40.76164]   // (5R)
+    ];
+    let line2 = [
+        [-119.21264, 40.76239],  // (23R)
+        [-119.2306, 40.75596]    // (5L)
+    ];
+
+    if (this.position == null)
+        return false;
+
+    let lineString1 = new ol.geom.LineString(line1);
+    let lineString2 = new ol.geom.LineString(line2);
+
+    let distanceToLine1 = ol.sphere.getDistance(this.position, lineString1.getClosestPoint(this.position));
+    let distanceToLine2 = ol.sphere.getDistance(this.position, lineString2.getClosestPoint(this.position));
+
+    let thresholdDistance = 200;  // meters
+
+    return distanceToLine1 < thresholdDistance || distanceToLine2 < thresholdDistance;
+};
+
 PlaneObject.prototype.updateIcon = function() {
 
     let fillColor = hslToRgb(this.getMarkerColor());
@@ -926,17 +961,16 @@ PlaneObject.prototype.updateIcon = function() {
         }
 
         // 88NV Override label for aircraft in the special list to show only "UL" and altitude
-        let icaonum = Number("0x" + this.icao);
         if (ultralights.includes(this.registration)) {
             let altString = (alt == null) ? unknown : format_altitude_brief(alt, this.vert_rate, DisplayUnits, showLabelUnits);
             labelText = "UL " + altString;
         }
-        else if (
-            // 88NV hide label for ground vehicles
-            icaonum >= reserved_icao_start &&
-            icaonum <= reserved_icao_end
-        ) {
-            labelText = "";
+        else if (this.isGroundVehicle()) {
+            if (!this.IsNearRunways()) {
+                labelText = "";  // 88NV don't show label for ground vehicles inside or near the city
+            } else {
+                labelText = callsign
+            }
         }
     }
     if (!webgl && (this.markerStyle == null || this.markerIcon == null || (this.markerSvgKey != svgKey))) {
@@ -1736,6 +1770,7 @@ PlaneObject.prototype.updateMarker = function(moved) {
 
   // ****** 88NV mods - render some ICAOs as ground vehicles ******
   let icaonum = Number("0x" + this.icao);
+
   if (
     icaonum >= reserved_icao_start &&
     icaonum <= reserved_icao_end
@@ -1778,12 +1813,7 @@ PlaneObject.prototype.updateMarker = function(moved) {
         this.baseScale = baseMarker[1] * 0.96;
     }
 
-    // 88NV reduce size of ground vehicles
-    if (this.groundVehicle) {
-        // this.scale = iconSize * this.baseScale * (this.groundVehicle ? 0.7 : 1.0);
-    } else {
-        this.scale = iconSize * this.baseScale;
-    }
+    this.scale = iconSize * this.baseScale;
 
     this.strokeWidth = outlineWidth * ((this.selected && !SelectedAllPlanes && !onlySelected) ? 0.85 : 0.7) / this.baseScale;
 
