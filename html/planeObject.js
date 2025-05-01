@@ -696,7 +696,7 @@ PlaneObject.prototype.getMarkerColor = function(options) {
     }
 
     // 88NV grey color for ultralights
-    icaonum = Number("0x" + this.icao);
+    let icaonum = Number("0x" + this.icao);
     if (ultralights.includes(this.registration)) {
         return [0, 0, 50]; // Grey color in HSL
     } else if (icaonum >= reserved_icao_start && icaonum <= reserved_icao_end) {
