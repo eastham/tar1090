@@ -1,12 +1,8 @@
-
-const ultralights = [
-    "N566AC",
-];
-const reserved_icao_start = 0xadf800;
-const reserved_icao_end = 0xadf8ff;
-
-
 "use strict";
+
+const ultralights = ["N566AC"];  // will be rendered with label "UL" and alt only
+const reserved_icao_start = 0xadf800; // will be rendered with vehicle name only
+const reserved_icao_end = 0xadf8ff;
 
 function PlaneObject(icao) {
     icao = `${icao}`;
@@ -928,14 +924,15 @@ PlaneObject.prototype.updateIcon = function() {
         }
 
         // 88NV Override label for aircraft in the special list to show only "UL" and altitude
+        let icaonum = Number("0x" + this.icao);
         if (ultralights.includes(this.registration)) {
             let altString = (alt == null) ? unknown : format_altitude_brief(alt, this.vert_rate, DisplayUnits, showLabelUnits);
             labelText = "UL " + altString;
         }
         else if (
             // 88NV hide label for ground vehicles
-            this.icao >= reserved_icao_start &&
-            this.icao <= reserved_icao_end
+            icaonum >= reserved_icao_start &&
+            icaonum <= reserved_icao_end
         ) {
             labelText = "";
         }
@@ -1780,7 +1777,9 @@ PlaneObject.prototype.updateMarker = function(moved) {
     }
 
     // 88NV reduce size of ground vehicles
-    this.scale = iconSize * this.baseScale * (this.groundVehicle ? 0.7 : 1.0);
+    if (this.groundVehicle) {
+        this.scale = iconSize * this.baseScale * (this.groundVehicle ? 0.7 : 1.0);
+    }
 
     this.strokeWidth = outlineWidth * ((this.selected && !SelectedAllPlanes && !onlySelected) ? 0.85 : 0.7) / this.baseScale;
 
