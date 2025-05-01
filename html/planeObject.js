@@ -701,7 +701,7 @@ PlaneObject.prototype.getMarkerColor = function(options) {
         return [0, 0, 50]; // Grey color in HSL
     } else if (icaonum >= reserved_icao_start && icaonum <= reserved_icao_end) {
         return [0, 100, 50]; // Bright red color in HSL
-
+    }
     let alt = options.noRound ? this.altitude : this.alt_rounded;
     if (this.category == 'C3' || this.icaoType == 'TWR' || (this.icaoType == null && this.squawk == 7777))
         alt = 'ground';
