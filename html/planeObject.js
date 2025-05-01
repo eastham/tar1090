@@ -2102,6 +2102,15 @@ PlaneObject.prototype.updateLines = function() {
                     zIndex: Number(zIndex),
                 })
             );
+            // 88NV reduce label size of ground vehicle labels
+            icaonum = Number("0x" + this.icao);
+            if (icaonum >= reserved_icao_start &&
+                icaonum <= reserved_icao_end) {
+                seg.label
+                .getStyle()
+                .getText()
+                .setFont("10px " + labelFont.split(" ")[1]); // Reduce font size for ground labels
+            }
             seg.label.hex = `${this.icao}`;
             seg.label.timestamp = Number(seg.ts);
             seg.label.isLabel = true;
