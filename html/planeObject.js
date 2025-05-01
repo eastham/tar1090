@@ -2106,10 +2106,13 @@ PlaneObject.prototype.updateLines = function() {
             icaonum = Number("0x" + this.icao);
             if (icaonum >= reserved_icao_start &&
                 icaonum <= reserved_icao_end) {
+                const currentFont = seg.label.getStyle().getText().getFont();
+                const fontParts = currentFont.split(" ");
+                const reducedFontSize = parseFloat(fontParts[0]) * 0.5;
                 seg.label
                 .getStyle()
                 .getText()
-                .setFont("10px " + labelFont.split(" ")[1]); // Reduce font size for ground labels
+                .setFont(`${reducedFontSize}px ${fontParts.slice(1).join(" ")}`); // Dynamically adjust font size
             }
             seg.label.hex = `${this.icao}`;
             seg.label.timestamp = Number(seg.ts);
