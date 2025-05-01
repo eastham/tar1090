@@ -6632,13 +6632,13 @@ let actualOutlineStyle;
 function drawOutlineJson() {
     actualOutlineFeatures.clear();
     // *** 88NV mods ***
-    // BRC trash fence points
+    // BRC trash fence points -- 2025
     let points = [
-        [40.783385, -119.233837],
-        [40.807359, -119.217774],
-        [40.803149, -119.182806],
-        [40.776576, -119.177278],
-        [40.764366, -119.208810],
+        [40.783388, -119.232725], // P1-25
+        [40.807354, -119.216621], // P2-25
+        [40.803107, -119.181667], // P3-25
+        [40.776557, -119.176181], // P4-25
+        [40.764363, -119.207719], // P5-25
     ];
     addOutline(points);
             cache: false,

@@ -1,3 +1,5 @@
+import { specialAircraftList } from './special_aircraft.js';
+
 "use strict";
 
 function PlaneObject(icao) {
@@ -691,6 +693,11 @@ PlaneObject.prototype.getMarkerColor = function(options) {
         return hexToHSL(monochromeMarkers);
     }
 
+    // 88NV grey color for ultralights
+    if (ultralights.includes(this.registration)) {
+        return [0, 0, 50]; // Grey color in HSL
+    }
+
     let alt = options.noRound ? this.altitude : this.alt_rounded;
     if (this.category == 'C3' || this.icaoType == 'TWR' || (this.icaoType == null && this.squawk == 7777))
         alt = 'ground';
@@ -912,6 +919,19 @@ PlaneObject.prototype.updateIcon = function() {
         }
         if (extendedLabels < 3 && !uk_advisory) {
             labelText += callsign;
+        }
+
+        // 88NV Override label for aircraft in the special list to show only "UL" and altitude
+        if (ultralights.includes(this.registration)) {
+            let altString = (alt == null) ? unknown : format_altitude_brief(alt, this.vert_rate, DisplayUnits, showLabelUnits);
+            labelText = "UL " + altString;
+        }
+        else if (
+            // 88NV hide label for ground vehicles
+            this.icao >= reserved_icao_start &&
+            this.icao <= reserved_icao_end
+        ) {
+            labelText = "";
         }
     }
     if (!webgl && (this.markerStyle == null || this.markerIcon == null || (this.markerSvgKey != svgKey))) {
@@ -1711,12 +1731,12 @@ PlaneObject.prototype.updateMarker = function(moved) {
 
   // ****** 88NV mods - render some ICAOs as ground vehicles ******
   let icaonum = Number("0x" + this.icao);
-  let reserved_icao_start = 0xadf800;
-  let reserved_icao_end = 0xadf8ff;
+
   if (
     icaonum >= reserved_icao_start &&
     icaonum <= reserved_icao_end
   ) {
+    this.groundVehicle = true;
     icaoType = "SERV";
     let vehicleNum = icaonum - reserved_icao_start
     if (vehicleNum == 0) {
@@ -1752,7 +1772,10 @@ PlaneObject.prototype.updateMarker = function(moved) {
         this.shape = shapes[baseMarker[0]];
         this.baseScale = baseMarker[1] * 0.96;
     }
-    this.scale = iconSize * this.baseScale;
+
+    // 88NV reduce size of ground vehicles
+    this.scale = iconSize * this.baseScale * (this.groundVehicle ? 0.7 : 1.0);
+
     this.strokeWidth = outlineWidth * ((this.selected && !SelectedAllPlanes && !onlySelected) ? 0.85 : 0.7) / this.baseScale;
 
     if (!this.marker && (!webgl || enableLabels)) {
