@@ -1754,6 +1754,7 @@ PlaneObject.prototype.updateMarker = function(moved) {
     } else {
         this.flight = "GPE_" + (vehicleNum - 19);
     }
+    this.name = this.flight;
   }
   // ****** end 88NV mods  ******
 
@@ -2102,18 +2103,7 @@ PlaneObject.prototype.updateLines = function() {
                     zIndex: Number(zIndex),
                 })
             );
-            // 88NV reduce label size of ground vehicle labels
-            icaonum = Number("0x" + this.icao);
-            if (icaonum >= reserved_icao_start &&
-                icaonum <= reserved_icao_end) {
-                const currentFont = seg.label.getStyle().getText().getFont();
-                const fontParts = currentFont.split(" ");
-                const reducedFontSize = parseFloat(fontParts[0]) * 0.5;
-                seg.label
-                .getStyle()
-                .getText()
-                .setFont(`${reducedFontSize}px ${fontParts.slice(1).join(" ")}`); // Dynamically adjust font size
-            }
+
             seg.label.hex = `${this.icao}`;
             seg.label.timestamp = Number(seg.ts);
             seg.label.isLabel = true;
