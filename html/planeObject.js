@@ -934,7 +934,7 @@ PlaneObject.prototype.updateIcon = function() {
             icaonum >= reserved_icao_start &&
             icaonum <= reserved_icao_end
         ) {
-            labelText = "";
+            labelText = callsign;
         }
     }
     if (!webgl && (this.markerStyle == null || this.markerIcon == null || (this.markerSvgKey != svgKey))) {
