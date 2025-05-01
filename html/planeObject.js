@@ -696,9 +696,11 @@ PlaneObject.prototype.getMarkerColor = function(options) {
     }
 
     // 88NV grey color for ultralights
+    icaonum = Number("0x" + this.icao);
     if (ultralights.includes(this.registration)) {
         return [0, 0, 50]; // Grey color in HSL
-    }
+    } else if (icaonum >= reserved_icao_start && icaonum <= reserved_icao_end) {
+        return [0, 100, 50]; // Bright red color in HSL
 
     let alt = options.noRound ? this.altitude : this.alt_rounded;
     if (this.category == 'C3' || this.icaoType == 'TWR' || (this.icaoType == null && this.squawk == 7777))
@@ -934,7 +936,7 @@ PlaneObject.prototype.updateIcon = function() {
             icaonum >= reserved_icao_start &&
             icaonum <= reserved_icao_end
         ) {
-            labelText = callsign;
+            labelText = "";
         }
     }
     if (!webgl && (this.markerStyle == null || this.markerIcon == null || (this.markerSvgKey != svgKey))) {
@@ -1734,7 +1736,6 @@ PlaneObject.prototype.updateMarker = function(moved) {
 
   // ****** 88NV mods - render some ICAOs as ground vehicles ******
   let icaonum = Number("0x" + this.icao);
-
   if (
     icaonum >= reserved_icao_start &&
     icaonum <= reserved_icao_end
@@ -1779,7 +1780,7 @@ PlaneObject.prototype.updateMarker = function(moved) {
 
     // 88NV reduce size of ground vehicles
     if (this.groundVehicle) {
-        this.scale = iconSize * this.baseScale * (this.groundVehicle ? 0.7 : 1.0);
+        // this.scale = iconSize * this.baseScale * (this.groundVehicle ? 0.7 : 1.0);
     } else {
         this.scale = iconSize * this.baseScale;
     }
