@@ -842,8 +842,9 @@ PlaneObject.prototype.setMarkerRgb = function() {
 };
 
 PlaneObject.prototype.isGroundVehicle = function() {
-    let vehicleNum = icaonum - reserved_icao_start;
     let icaonum = Number("0x" + this.icao);
+    let vehicleNum = icaonum - reserved_icao_start;
+
     return (icaonum >= reserved_icao_start &&
             icaonum <= reserved_icao_end &&
             (vehicleNum >= 10 || vehicleNum < 20))
