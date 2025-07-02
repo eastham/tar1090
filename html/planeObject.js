@@ -847,7 +847,7 @@ PlaneObject.prototype.isGroundVehicle = function() {
 
     return (icaonum >= reserved_icao_start &&
             icaonum <= reserved_icao_end &&
-            (vehicleNum >= 10 || vehicleNum < 20))
+            (vehicleNum < 10 || vehicleNum >= 20))
 }
 
 PlaneObject.prototype.IsNearRunways = function() {
