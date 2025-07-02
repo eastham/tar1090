@@ -842,17 +842,19 @@ PlaneObject.prototype.setMarkerRgb = function() {
 };
 
 PlaneObject.prototype.isGroundVehicle = function() {
+    let vehicleNum = icaonum - reserved_icao_start;
     let icaonum = Number("0x" + this.icao);
     return (icaonum >= reserved_icao_start &&
-            icaonum <= reserved_icao_end)
+            icaonum <= reserved_icao_end &&
+            (vehicleNum >= 10 || vehicleNum < 20))
 }
 
 PlaneObject.prototype.IsNearRunways = function() {
-    let line1 = [
+    let rwy1 = [
         [-119.18491, 40.76866],  // (23L)
         [-119.20451, 40.76164]   // (5R)
     ];
-    let line2 = [
+    let rwy2 = [
         [-119.21264, 40.76239],  // (23R)
         [-119.2306, 40.75596]    // (5L)
     ];
@@ -860,8 +862,8 @@ PlaneObject.prototype.IsNearRunways = function() {
     if (this.position == null)
         return false;
 
-    let lineString1 = new ol.geom.LineString(line1);
-    let lineString2 = new ol.geom.LineString(line2);
+    let lineString1 = new ol.geom.LineString(rwy1);
+    let lineString2 = new ol.geom.LineString(rwy2);
 
     let distanceToLine1 = ol.sphere.getDistance(this.position, lineString1.getClosestPoint(this.position));
     let distanceToLine2 = ol.sphere.getDistance(this.position, lineString2.getClosestPoint(this.position));
@@ -1785,8 +1787,8 @@ PlaneObject.prototype.updateMarker = function(moved) {
     } else if (vehicleNum < 10) {
         this.flight = "AIRPORT_" + (vehicleNum - 1);
     } else if (vehicleNum < 20) {
-        this.flight = "NONADSB_" + (vehicleNum - 9);
-        icaoType = "TWR";
+        this.flight = "AIRPORT_AC1" + (vehicleNum - 9);
+        icaoType = "METR";
     } else {
         this.flight = "GPE_" + (vehicleNum - 19);
     }
