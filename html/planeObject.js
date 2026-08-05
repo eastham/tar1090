@@ -852,12 +852,12 @@ PlaneObject.prototype.isGroundVehicle = function() {
 
 PlaneObject.prototype.IsNearRunways = function() {
     let rwy1 = [
-        [-119.18491, 40.76866],  // (23L)
-        [-119.20451, 40.76164]   // (5R)
+        [-119.18915, 40.76583],  // (23L)
+        [-119.20875, 40.75882]   // (5R)
     ];
     let rwy2 = [
-        [-119.21264, 40.76239],  // (23R)
-        [-119.2306, 40.75596]    // (5L)
+        [-119.21641, 40.75881],  // (23R)
+        [-119.23601, 40.75179]   // (5L)
     ];
 
     if (this.position == null)
